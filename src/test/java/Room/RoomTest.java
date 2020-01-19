@@ -75,4 +75,10 @@ public class RoomTest {
         room2.enterRoom(warrior);
         assertTrue(startingHealth != warrior.getHP());
     }
+
+    @Test
+    public void heroCanCompleteRoom(){
+        room2.enterRoom(warrior);
+        assertTrue(room2.missionStatus());
+    }
 }

@@ -31,4 +31,10 @@ public class Quest {
     public void addRoom(Room room) {
         this.rooms.add(room);
     }
+
+    public void tackleQuest() {
+        for (Room currentRoom : this.rooms){
+            currentRoom.enterRoom(this.character);
+        }
+    }
 }

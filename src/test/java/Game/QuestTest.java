@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class QuestTest {
@@ -26,6 +27,7 @@ public class QuestTest {
     Room room;
     Spell spell;
     Dragon dragon;
+    Room room2;
 
     @Before
     public void before(){
@@ -36,6 +38,7 @@ public class QuestTest {
         spellcaster = new SpellCaster(40, spell, ArmourType.CLOTH, dragon);
         orc = new Orc(50, weapon);
         room = new Room(TreasureType.GEM);
+        room2 = new Room(orc);
         quest = new Quest(warrior);
 
     }
@@ -54,10 +57,29 @@ public class QuestTest {
         quest.addRoom(room);
         assertEquals(1, quest.getRoomList().size());
     }
-    @Test public void checkThatThePlayerCanChange(){
+    @Test
+    public void checkThatThePlayerCanChange(){
         quest.addPlayer(spellcaster);
         assertEquals(spellcaster, quest.getPlayer());
     }
+
+    @Test
+    public void checkThatAPlayerCanClearRoom(){
+        quest.addRoom(room);
+        quest.tackleQuest();
+        assertTrue(room.missionStatus());
+    }
+
+    @Test
+    public void checkThatAPlayerCanClearRoomWithACreature(){
+        quest.addRoom(room2);
+        quest.tackleQuest();
+        assertTrue(room2.missionStatus());
+    }
+
+
+
+
 
 
 

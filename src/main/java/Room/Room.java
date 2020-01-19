@@ -55,6 +55,8 @@ public class Room {
             this.emptyChest();
         }
 
+        this.completeQuest();
+
 
         }
 
@@ -64,6 +66,5 @@ public class Room {
             creature.attack(hero);
         }
         creature.setStatus();
-        this.status = !this.status;
     }
 }
