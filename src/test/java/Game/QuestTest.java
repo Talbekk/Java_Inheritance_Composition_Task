@@ -77,6 +77,16 @@ public class QuestTest {
         assertTrue(room2.missionStatus());
     }
 
+    @Test
+    public void canCompleteMultipleRoomsInQuest(){
+        quest.addRoom(room);
+        quest.addRoom(room2);
+        quest.tackleQuest();
+        assertTrue(quest.getObjectivesCompleted());
+    }
+
+    
+
 
 
 

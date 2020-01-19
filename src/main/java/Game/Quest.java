@@ -9,10 +9,12 @@ import java.util.BitSet;
 public class Quest {
     ArrayList<Room> rooms;
     IPlayable character;
+    boolean progress;
 
     public Quest(IPlayable character){
         this.rooms = new ArrayList<Room>();
         this.character = character;
+        this.progress = false;
     }
 
 
@@ -36,5 +38,16 @@ public class Quest {
         for (Room currentRoom : this.rooms){
             currentRoom.enterRoom(this.character);
         }
+    }
+
+    public boolean getObjectivesCompleted() {
+        for (Room currentRoom : this.rooms){
+            if (currentRoom.missionStatus()){
+                this.progress = true;
+            } else {
+                this.progress = false;
+            }
+        }
+        return this.progress;
     }
 }
