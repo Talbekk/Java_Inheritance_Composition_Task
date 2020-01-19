@@ -1,6 +1,7 @@
 package Creature;
 
 import Behaviours.IDamageable;
+import Character.SpellCaster;
 import Behaviours.IRoomable;
 import Equipments.Equipment;
 
@@ -41,6 +42,9 @@ public abstract class MythicalCreature implements IRoomable, IDamageable {
 
     public void attack(IDamageable character) {
         int attackDamage = this.equipment.getDMG();
+        if (character instanceof SpellCaster && ((SpellCaster) character).getCompanion().getHP() > 0){
+            character = ((SpellCaster) character).getCompanion();
+        }
         int characterHealth = character.getHP();
         int result = characterHealth - attackDamage;
         character.setHP(result);

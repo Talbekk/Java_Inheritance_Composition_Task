@@ -51,5 +51,21 @@ public class SpellCasterTest {
         spellCaster.attack(ogre);
         assertEquals(0, ogre.getHP());
     }
+
+    @Test
+    public void companionWillTakeDamageBeforeHero(){
+        ogre.attack(spellCaster);
+        assertEquals(25, spellCaster.getCompanion().getHP());
+        assertEquals(101, spellCaster.getHP());
+    }
+
+    @Test
+    public void spellCasterWillBeAttackedIfCompanionDies(){
+        ogre.attack(spellCaster);
+        ogre.attack(spellCaster);
+        ogre.attack(spellCaster);
+        assertEquals(0, spellCaster.getCompanion().getHP());
+        assertEquals(76, spellCaster.getHP());
+    }
 }
 

@@ -36,7 +36,22 @@ public class SpellCaster extends Character {
             int result = creatureHealth - attackDamage;
             creature.setHP(result);
 
+    }
+
+    public void setHP(int hp) {
+        MythicalCreature companion = this.mythicalCreature;
+        if (companion.getHP() > 0) {
+            companion.setHP(hp);
+            if (companion.getHP() < 0){
+                companion.setHP(0);
+            }
+        } else {
+            this.hp = hp;
+            if (this.hp < 0) {
+                this.hp = 0;
+            }
         }
+    }
 
 
 }
