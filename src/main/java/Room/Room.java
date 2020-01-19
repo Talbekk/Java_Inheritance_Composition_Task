@@ -41,19 +41,21 @@ public class Room {
         return this.chest.remove(0);
     }
 
-    public void enterRoom(IPlayable hero) {
+    public void enterRoom(ArrayList<IPlayable> heroes) {
 
-            for (IRoomable currentObjective : this.objectives) {
-                if (currentObjective instanceof MythicalCreature) {
-                    this.resolveFight((IDamageable) currentObjective, (IDamageable) hero);
-                }
-                if (this.getChest().size() > 0) {
-                    TreasureType reward = this.getTreasure();
-                    hero.addLoot(reward);
-                    this.emptyChest();
-                }
-                if (hero.getStatus()) {
-                    this.completeQuest();
+            for (IPlayable hero : heroes) {
+                for (IRoomable currentObjective : this.objectives) {
+                    if (currentObjective instanceof MythicalCreature) {
+                        this.resolveFight((IDamageable) currentObjective, (IDamageable) hero);
+                    }
+                    if (this.getChest().size() > 0) {
+                        TreasureType reward = this.getTreasure();
+                        hero.addLoot(reward);
+                        this.emptyChest();
+                    }
+                    if (hero.getStatus()) {
+                        this.completeQuest();
+                    }
                 }
             }
 

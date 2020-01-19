@@ -63,7 +63,7 @@ public class QuestTest {
 
     @Test
     public void checkTheQuestCanHaveAPlayer(){
-        assertEquals(warrior, quest.getPlayer());
+        assertEquals(1, quest.getPlayers().size());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class QuestTest {
     @Test
     public void checkThatThePlayerCanChange(){
         quest.addPlayer(spellcaster);
-        assertEquals(spellcaster, quest.getPlayer());
+        assertTrue( quest.getPlayers().contains(spellcaster));
     }
 
     @Test

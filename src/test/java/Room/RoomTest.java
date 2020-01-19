@@ -1,13 +1,17 @@
 package Room;
 
 import Behaviours.IPlayable;
+import Character.Healer;
 import Character.Warrior;
 import Creature.Orc;
+import Equipments.Potion;
 import Equipments.Weapon;
 import Types.ArmourType;
 import Types.TreasureType;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -19,12 +23,17 @@ public class RoomTest {
     Warrior warrior;
     Weapon weapon;
     Weapon axe;
+    Healer healer;
+    Potion potion;
+    ArrayList<IPlayable> player;
+    ArrayList<IPlayable> players;
 
 
     @Before
     public void before(){
 
         axe = new Weapon("Axe", 20);
+        potion = new Potion("Shadow Elixir", 25);
         orc = new Orc(50, axe);
         room = new Room();
         room.addObjective(TreasureType.GEM);
@@ -32,6 +41,12 @@ public class RoomTest {
         room2.addObjective(orc);
         weapon = new Weapon("BattleAxe", 40);
         warrior = new Warrior(100, weapon, ArmourType.PLATE);
+        healer = new Healer(50, potion, ArmourType.CLOTH);
+//        ArrayList<IPlayable> players = new ArrayList<IPlayable>();
+//        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+//        players.add(warrior);
+//        players.add(healer);
+//        player.add(warrior);
 
     }
 
@@ -67,26 +82,34 @@ public class RoomTest {
     }
     @Test
     public void heroCanLootTreasureInARoom(){
-        room.enterRoom(warrior);
+        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+        player.add(warrior);
+        room.enterRoom(player);
         assertEquals(0, room.getChest().size());
         assertEquals(1, warrior.getBag().size());
     }
     @Test
     public void heroCanDefeatCreatureInRoom(){
-        room2.enterRoom(warrior);
+        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+        player.add(warrior);
+        room2.enterRoom(player);
         assertFalse(orc.getStatus());
     }
 
     @Test
     public void heroKeepsDamageWhenFinishesCombat(){
+        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+        player.add(warrior);
         int startingHealth = warrior.getHP();
-        room2.enterRoom(warrior);
+        room2.enterRoom(player);
         assertTrue(startingHealth != warrior.getHP());
     }
 
     @Test
     public void heroCanCompleteRoom(){
-        room2.enterRoom(warrior);
+        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+        player.add(warrior);
+        room2.enterRoom(player);
         assertTrue(room2.getObjectiveStatus());
     }
 
@@ -100,10 +123,21 @@ public class RoomTest {
 
     @Test
     public void canCompleteARoomWithMoreThanOneObjective(){
+        ArrayList<IPlayable> player = new ArrayList<IPlayable>();
+        player.add(warrior);
         room = new Room();
         room.addObjective(orc);
         room.addObjective(TreasureType.GEM);
-        room.enterRoom(warrior);
+        room.enterRoom(player);
+        assertTrue(room.getObjectiveStatus());
+    }
+
+    @Test
+    public void canEnterTwoPlayersIntoRoom(){
+        ArrayList<IPlayable> players = new ArrayList<IPlayable>();
+        players.add(warrior);
+        players.add(healer);
+        room.enterRoom(players);
         assertTrue(room.getObjectiveStatus());
     }
 }

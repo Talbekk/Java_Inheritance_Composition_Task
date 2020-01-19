@@ -9,23 +9,23 @@ import java.util.BitSet;
 public class Quest {
     String name;
     ArrayList<Room> rooms;
-    IPlayable character;
+    ArrayList<IPlayable> characters;
     boolean progress;
 
     public Quest(String name, IPlayable character){
         this.name = name;
         this.rooms = new ArrayList<Room>();
-        this.character = character;
+        this.characters = new ArrayList<IPlayable>();
         this.progress = false;
     }
 
 
-    public IPlayable getPlayer() {
-        return this.character;
+    public ArrayList<IPlayable> getPlayers() {
+        return new ArrayList<IPlayable>(this.characters);
     }
 
     public void addPlayer(IPlayable hero) {
-        this.character = hero;
+        this.characters.add(hero);
     }
 
     public ArrayList<Room> getRoomList() {
@@ -38,7 +38,7 @@ public class Quest {
 
     public void tackleQuest() {
         for (Room currentRoom : this.rooms){
-            currentRoom.enterRoom(this.character);
+            currentRoom.enterRoom(this.characters);
         }
     }
 
