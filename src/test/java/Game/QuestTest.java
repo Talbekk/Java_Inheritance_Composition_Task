@@ -44,11 +44,15 @@ public class QuestTest {
         orc = new Orc(50, weapon);
         basilisk = new Basilisk(50, spell);
         ogre = new Ogre(75, weapon);
-        room = new Room(TreasureType.GEM);
-        room2 = new Room(orc);
+        room = new Room();
+        room.addObjective(TreasureType.GEM);
+        room2 = new Room();
+        room2.addObjective(orc);
         quest = new Quest("The Trials and Tribulations of E35", warrior);
-        room3 = new Room(basilisk);
-        room4 = new Room(ogre);
+        room3 = new Room();
+        room3.addObjective(basilisk);
+        room4 = new Room();
+        room4.addObjective(ogre);
 
     }
 
@@ -81,14 +85,14 @@ public class QuestTest {
     public void checkThatAPlayerCanClearRoom(){
         quest.addRoom(room);
         quest.tackleQuest();
-        assertTrue(room.missionStatus());
+        assertTrue(room.objectiveStatus());
     }
 
     @Test
     public void checkThatAPlayerCanClearRoomWithACreature(){
         quest.addRoom(room2);
         quest.tackleQuest();
-        assertTrue(room2.missionStatus());
+        assertTrue(room2.objectiveStatus());
     }
 
     @Test
@@ -106,5 +110,11 @@ public class QuestTest {
         quest.addRoom(room4);
         quest.tackleQuest();
         assertFalse(quest.getObjectivesCompleted());
+    }
+
+    @Test
+    public void canAddMultiplePlayersToAQuest(){
+    quest.addRoom(room2);
+    quest.tackleQuest();
     }
 }

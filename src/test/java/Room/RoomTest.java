@@ -26,26 +26,34 @@ public class RoomTest {
 
         axe = new Weapon("Axe", 20);
         orc = new Orc(50, axe);
-        room = new Room(TreasureType.GEM);
-        room2 = new Room(orc);
-        weapon = new Weapon("BattleAxe", 50);
+        room = new Room();
+        room.addObjective(TreasureType.GEM);
+        room2 = new Room();
+        room2.addObjective(orc);
+        weapon = new Weapon("BattleAxe", 40);
         warrior = new Warrior(100, weapon, ArmourType.PLATE);
 
     }
 
     @Test
     public void hasAMissionInRoom(){
-        assertEquals(TreasureType.GEM, room.getMission());
+        assertTrue(room.getObjectives().contains(TreasureType.GEM));
+    }
+
+    @Test
+    public void canAddObjectivesToRoom(){
+        assertEquals(1, room.getObjectives().size());
+        assertEquals(1, room2.getObjectives().size());
     }
 
     @Test
     public void canCheckChestHasTreasure(){
-        assertEquals(1,room.getChest().size() );
+        assertEquals(1, room.getChest().size() );
     }
     @Test
     public void canChangeCompletedStatus(){
         room.completeQuest();
-        assertTrue(room.missionStatus());
+        assertTrue(room.objectiveStatus());
 
     }
     @Test
@@ -55,7 +63,7 @@ public class RoomTest {
     }
     @Test
     public void roomCanHaveACreatureToFight(){
-        assertEquals(orc, room2.getMission());
+        assertTrue(room2.getObjectives().contains(orc));
     }
     @Test
     public void heroCanLootTreasureInARoom(){
@@ -79,6 +87,11 @@ public class RoomTest {
     @Test
     public void heroCanCompleteRoom(){
         room2.enterRoom(warrior);
-        assertTrue(room2.missionStatus());
+        assertTrue(room2.objectiveStatus());
+    }
+
+    @Test
+    public void hasTreasureAndCreatureInRoom(){
+        room = new Room();
     }
 }

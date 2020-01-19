@@ -4,34 +4,32 @@ import Behaviours.IDamageable;
 import Behaviours.IPlayable;
 import Behaviours.IRoomable;
 import Creature.MythicalCreature;
+import Creature.Orc;
 import Types.TreasureType;
 
 import java.util.ArrayList;
 
 public class Room {
 
-    private IRoomable mission;
+    private ArrayList<IRoomable> objectives;
     private ArrayList<TreasureType> chest;
     private boolean status;
 
-    public Room(IRoomable mission) {
-        this.mission = mission;
+    public Room() {
+        this.objectives = new ArrayList<IRoomable>();
         this.chest = new ArrayList<TreasureType>();
-        if (mission instanceof TreasureType){
-            chest.add((TreasureType) mission);
-        }
         this.status = false;
     }
 
-    public IRoomable getMission() {
-        return this.mission;
+    public ArrayList<IRoomable> getObjectives() {
+        return new ArrayList<IRoomable>(objectives);
     }
 
     public ArrayList<TreasureType> getChest() {
         return new ArrayList<TreasureType>(chest);
     }
 
-    public boolean missionStatus(){ return this.status; }
+    public boolean objectiveStatus(){ return this.status; }
 
     public void completeQuest() {
         this.status = !this.status;
@@ -45,18 +43,19 @@ public class Room {
 
     public void enterRoom(IPlayable hero) {
 
-
-        if (this.getMission() instanceof MythicalCreature){
-            this.resolveFight((IDamageable)this.getMission(), (IDamageable)hero);
-        }
-        if (this.getChest().size() > 0) {
-            TreasureType reward = this.getTreasure();
-            hero.addLoot(reward);
-            this.emptyChest();
-        }
-        if (hero.getStatus()) {
-            this.completeQuest();
-        }
+            for (IRoomable currentObjective : this.objectives) {
+                if (currentObjective instanceof MythicalCreature) {
+                    this.resolveFight((IDamageable) currentObjective, (IDamageable) hero);
+                }
+                if (this.getChest().size() > 0) {
+                    TreasureType reward = this.getTreasure();
+                    hero.addLoot(reward);
+                    this.emptyChest();
+                }
+                if (hero.getStatus()) {
+                    this.completeQuest();
+                }
+            }
 
 
         }
@@ -75,5 +74,14 @@ public class Room {
                  hero.setStatus();
              }
          }
+    }
+
+    public void addObjective(IRoomable objective) {
+        this.objectives.add(objective);
+        for (IRoomable currentObjective : this.objectives) {
+            if (currentObjective instanceof TreasureType) {
+                chest.add((TreasureType) currentObjective);
+            }
+        }
     }
 }
