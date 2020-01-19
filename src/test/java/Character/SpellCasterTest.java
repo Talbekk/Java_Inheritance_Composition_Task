@@ -25,7 +25,7 @@ public class SpellCasterTest {
         dragon = new Dragon(50, spell);
         spellCaster = new SpellCaster(100, spell, ArmourType.CLOTH, dragon);
         weapon = new Weapon("Broadsword", 25);
-        ogre = new Ogre(25, weapon);
+        ogre = new Ogre(100, weapon);
         spell2 = new Spell("Frostbolt", 40);
     }
 
@@ -44,6 +44,12 @@ public class SpellCasterTest {
     public void canChangeSpell(){
         spellCaster.setEquipment(spell2);
         assertEquals("Frostbolt", spellCaster.getEquipment().getName());
+    }
+
+    @Test
+    public void canAttackCombinedWithCompanion(){
+        spellCaster.attack(ogre);
+        assertEquals(0, ogre.getHP());
     }
 }
 

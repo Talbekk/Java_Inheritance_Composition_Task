@@ -1,5 +1,6 @@
 package Game;
 import Character.Warrior;
+import Character.Healer;
 import Character.SpellCaster;
 import Creature.Basilisk;
 import Creature.Ogre;
@@ -9,6 +10,7 @@ import Creature.Dragon;
 
 import Equipments.Weapon;
 import Equipments.Spell;
+import Equipments.Potion;
 import Room.Room;
 import Types.ArmourType;
 import Types.TreasureType;
@@ -23,6 +25,7 @@ public class QuestTest {
     Quest quest;
     Warrior warrior;
     SpellCaster spellcaster;
+    Healer healer;
     Weapon weapon;
     Orc orc;
     Room room;
@@ -33,12 +36,15 @@ public class QuestTest {
     Room room4;
     Basilisk basilisk;
     Ogre ogre;
+    Potion potion;
 
     @Before
     public void before(){
         weapon = new Weapon("Long Sword", 20);
         spell = new Spell("Fireball", 40);
+        potion = new Potion("Shadow Elixir", 25);
         warrior =  new Warrior(100, weapon, ArmourType.PLATE);
+        healer = new Healer(40, potion, ArmourType.CLOTH);
         dragon = new Dragon(30, spell);
         spellcaster = new SpellCaster(40, spell, ArmourType.CLOTH, dragon);
         orc = new Orc(50, weapon);
@@ -53,6 +59,7 @@ public class QuestTest {
         room3.addObjective(basilisk);
         room4 = new Room();
         room4.addObjective(ogre);
+        quest.addPlayer(warrior);
 
     }
 
@@ -70,11 +77,13 @@ public class QuestTest {
     public void checkThereAreRooms(){
         assertEquals(0, quest.getRoomList().size());
     }
+
     @Test
     public void canAddRoomsToTheQuest(){
         quest.addRoom(room);
         assertEquals(1, quest.getRoomList().size());
     }
+
     @Test
     public void checkThatThePlayerCanChange(){
         quest.addPlayer(spellcaster);
@@ -116,5 +125,15 @@ public class QuestTest {
     public void canAddMultiplePlayersToAQuest(){
     quest.addRoom(room2);
     quest.tackleQuest();
+    }
+
+    @Test
+    public void canCompleteQuestWithMultiplePlayers(){
+        quest.addRoom(room);
+        quest.addRoom(room2);
+        quest.addPlayer(warrior);
+        quest.addPlayer(healer);
+        quest.tackleQuest();
+        assertTrue(quest.getObjectivesCompleted());
     }
 }

@@ -1,6 +1,7 @@
 package Character;
 
 import Behaviours.ICompanianble;
+import Behaviours.IDamageable;
 import Creature.Dragon;
 import Creature.MythicalCreature;
 import Creature.Ogre;
@@ -28,5 +29,14 @@ public class SpellCaster extends Character {
             this.mythicalCreature = companion;
         }
     }
+
+    public void attack(IDamageable creature){
+            int attackDamage = this.equipment.getDMG() + this.mythicalCreature.getEquipment().getDMG();
+            int creatureHealth = creature.getHP();
+            int result = creatureHealth - attackDamage;
+            creature.setHP(result);
+
+        }
+
 
 }
