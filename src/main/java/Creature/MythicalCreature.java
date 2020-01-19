@@ -5,7 +5,7 @@ import Behaviours.IRoomable;
 import Equipments.Equipment;
 
 
-public class MythicalCreature implements IRoomable, IDamageable {
+public abstract class MythicalCreature implements IRoomable, IDamageable {
 
     int hp;
     Equipment equipment;
@@ -28,6 +28,9 @@ public class MythicalCreature implements IRoomable, IDamageable {
 
     public void setHP(int hp) {
         this.hp = hp;
+        if(this.hp < 0){
+            this.hp = 0;
+        }
     }
 
     public void setEquipment(Equipment equipment) {

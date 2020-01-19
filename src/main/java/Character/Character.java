@@ -29,8 +29,13 @@ public abstract class Character implements IPlayable, IDamageable {
         return hp;
     }
 
+    public boolean getStatus(){return this.status;}
+
     public void setHP(int hp) {
         this.hp = hp;
+        if(this.hp < 0){
+            this.hp = 0;
+        }
     }
 
     public Equipment getEquipment() {

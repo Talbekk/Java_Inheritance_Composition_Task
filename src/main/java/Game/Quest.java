@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.BitSet;
 
 public class Quest {
+    String name;
     ArrayList<Room> rooms;
     IPlayable character;
     boolean progress;
 
-    public Quest(IPlayable character){
+    public Quest(String name, IPlayable character){
+        this.name = name;
         this.rooms = new ArrayList<Room>();
         this.character = character;
         this.progress = false;
@@ -49,5 +51,9 @@ public class Quest {
             }
         }
         return this.progress;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

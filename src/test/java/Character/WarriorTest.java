@@ -26,7 +26,7 @@ public class WarriorTest {
 
     @Test
     public void hasHP(){
-        assertEquals(110, warrior.getHP());
+        assertEquals(130, warrior.getHP());
     }
     @Test
     public void hasWeapon(){
@@ -45,6 +45,13 @@ public class WarriorTest {
     public void canAttackOrc(){
         warrior.attack(orc);
         assertEquals(20, orc.getHP());
+    }
+    @Test
+    public void checkTheOrcHPCannotGoBelowZero(){
+        warrior.attack(orc);
+        warrior.attack(orc);
+        warrior.attack(orc);
+        assertEquals(0, orc.getHP());
     }
 
     @Test

@@ -54,17 +54,26 @@ public class Room {
             hero.addLoot(reward);
             this.emptyChest();
         }
-
-        this.completeQuest();
+        if (hero.getStatus()) {
+            this.completeQuest();
+        }
 
 
         }
 
     private void resolveFight(IDamageable creature, IDamageable hero) {
-        while(creature.getHP() > 0){
+        while(creature.getHP() > 0 && hero.getHP() > 0) {
             hero.attack(creature);
-            creature.attack(hero);
+            if (creature.getHP() > 0) {
+                creature.attack(hero);
+            }
         }
-        creature.setStatus();
+         if (creature.getHP() <= 0) {
+             creature.setStatus();
+         } else {
+             if (hero.getHP() <= 0) {
+                 hero.setStatus();
+             }
+         }
     }
 }

@@ -32,7 +32,7 @@ public class OrcTest {
     @Test
     public void canAttackCharacter(){
         orc.attack(warrior);
-        assertEquals(85, warrior.getHP());
+        assertEquals(105, warrior.getHP());
 
     }
 

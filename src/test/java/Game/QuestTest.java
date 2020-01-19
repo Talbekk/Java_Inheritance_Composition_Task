@@ -1,6 +1,8 @@
 package Game;
 import Character.Warrior;
 import Character.SpellCaster;
+import Creature.Basilisk;
+import Creature.Ogre;
 import Creature.Orc;
 import Creature.Dragon;
 
@@ -13,8 +15,7 @@ import Types.TreasureType;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class QuestTest {
@@ -28,6 +29,10 @@ public class QuestTest {
     Spell spell;
     Dragon dragon;
     Room room2;
+    Room room3;
+    Room room4;
+    Basilisk basilisk;
+    Ogre ogre;
 
     @Before
     public void before(){
@@ -37,10 +42,19 @@ public class QuestTest {
         dragon = new Dragon(30, spell);
         spellcaster = new SpellCaster(40, spell, ArmourType.CLOTH, dragon);
         orc = new Orc(50, weapon);
+        basilisk = new Basilisk(50, spell);
+        ogre = new Ogre(75, weapon);
         room = new Room(TreasureType.GEM);
         room2 = new Room(orc);
-        quest = new Quest(warrior);
+        quest = new Quest("The Trials and Tribulations of E35", warrior);
+        room3 = new Room(basilisk);
+        room4 = new Room(ogre);
 
+    }
+
+    @Test
+    public void hasName(){
+        assertEquals("The Trials and Tribulations of E35", quest.getName());
     }
 
     @Test
@@ -85,16 +99,12 @@ public class QuestTest {
         assertTrue(quest.getObjectivesCompleted());
     }
 
-    
-
-
-
-
-
-
-
-
-
-
-
+    @Test
+    public void canFailAQuest(){
+        quest.addRoom(room2);
+        quest.addRoom(room3);
+        quest.addRoom(room4);
+        quest.tackleQuest();
+        assertFalse(quest.getObjectivesCompleted());
+    }
 }
