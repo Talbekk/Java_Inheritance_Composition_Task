@@ -9,4 +9,6 @@ public interface IDamageable {
     public void setHP(int result);
 
     public void setStatus();
+
+    public int getStartingHealth();
 }

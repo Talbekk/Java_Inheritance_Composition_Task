@@ -1,6 +1,7 @@
 package Creature;
 
 import Behaviours.ICompanianble;
+import Behaviours.IDamageable;
 import Equipments.Equipment;
 
 public class Ogre extends MythicalCreature implements ICompanianble {

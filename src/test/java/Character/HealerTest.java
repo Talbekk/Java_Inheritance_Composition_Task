@@ -16,6 +16,7 @@ public class HealerTest {
     Potion potion;
     Orc orc;
     Weapon weapon;
+    Warrior warrior;
 
     @Before
     public void before(){
@@ -23,6 +24,7 @@ public class HealerTest {
         healer = new Healer(50, potion, ArmourType.CLOTH);
         weapon = new Weapon("Axe", 25);
         orc = new Orc(20, weapon);
+        warrior = new Warrior(50, weapon, ArmourType.PLATE);
     }
 
     @Test
@@ -46,6 +48,14 @@ public class HealerTest {
         healer.heal();
         healer.heal();
         assertEquals(51, healer.getHP());
+    }
+
+    @Test
+    public void canHealOtherPlayers(){
+        orc.attack(warrior);
+        healer.healPlayer(warrior);
+        assertEquals(75, warrior.getHP());
+
     }
 
 

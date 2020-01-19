@@ -10,12 +10,14 @@ public abstract class MythicalCreature implements IRoomable, IDamageable {
     int hp;
     Equipment equipment;
     boolean status;
+    int startingHealth;
 
 
     public MythicalCreature(int hp, Equipment equipment) {
         this.hp = hp;
         this.equipment = equipment;
         this.status = true;
+        this.startingHealth = this.hp;
     }
 
     public int getHP() {
@@ -50,5 +52,9 @@ public abstract class MythicalCreature implements IRoomable, IDamageable {
 
     public void setStatus() {
         this.status = !status;
+    }
+
+    public int getStartingHealth(){
+        return this.startingHealth;
     }
 }
