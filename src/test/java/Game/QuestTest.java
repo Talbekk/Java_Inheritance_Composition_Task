@@ -85,14 +85,14 @@ public class QuestTest {
     public void checkThatAPlayerCanClearRoom(){
         quest.addRoom(room);
         quest.tackleQuest();
-        assertTrue(room.objectiveStatus());
+        assertTrue(room.getObjectiveStatus());
     }
 
     @Test
     public void checkThatAPlayerCanClearRoomWithACreature(){
         quest.addRoom(room2);
         quest.tackleQuest();
-        assertTrue(room2.objectiveStatus());
+        assertTrue(room2.getObjectiveStatus());
     }
 
     @Test

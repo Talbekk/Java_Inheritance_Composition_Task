@@ -44,7 +44,7 @@ public class Quest {
 
     public boolean getObjectivesCompleted() {
         for (Room currentRoom : this.rooms){
-            if (currentRoom.objectiveStatus()){
+            if (currentRoom.getObjectiveStatus()){
                 this.progress = true;
             } else {
                 this.progress = false;

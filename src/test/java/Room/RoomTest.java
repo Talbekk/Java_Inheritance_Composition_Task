@@ -53,7 +53,7 @@ public class RoomTest {
     @Test
     public void canChangeCompletedStatus(){
         room.completeQuest();
-        assertTrue(room.objectiveStatus());
+        assertTrue(room.getObjectiveStatus());
 
     }
     @Test
@@ -87,11 +87,23 @@ public class RoomTest {
     @Test
     public void heroCanCompleteRoom(){
         room2.enterRoom(warrior);
-        assertTrue(room2.objectiveStatus());
+        assertTrue(room2.getObjectiveStatus());
     }
 
     @Test
     public void hasTreasureAndCreatureInRoom(){
         room = new Room();
+        room.addObjective(orc);
+        room.addObjective(TreasureType.GEM);
+        assertEquals(2, room.getObjectives().size());
+    }
+
+    @Test
+    public void canCompleteARoomWithMoreThanOneObjective(){
+        room = new Room();
+        room.addObjective(orc);
+        room.addObjective(TreasureType.GEM);
+        room.enterRoom(warrior);
+        assertTrue(room.getObjectiveStatus());
     }
 }

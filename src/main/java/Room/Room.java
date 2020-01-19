@@ -29,10 +29,10 @@ public class Room {
         return new ArrayList<TreasureType>(chest);
     }
 
-    public boolean objectiveStatus(){ return this.status; }
+    public boolean getObjectiveStatus(){ return this.status; }
 
     public void completeQuest() {
-        this.status = !this.status;
+        this.status = true;
     }
 
     public void emptyChest() { this.chest.clear(); }
