@@ -20,10 +20,7 @@ public class WarriorTest {
         weapon = new Weapon("Sword", 10);
         warrior = new Warrior(100, weapon, ArmourType.PLATE);
         orc = new Orc(30, weapon);
-
-
     }
-
     @Test
     public void hasHP(){
         assertEquals(130, warrior.getHP());

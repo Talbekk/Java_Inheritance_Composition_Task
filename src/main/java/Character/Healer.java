@@ -10,10 +10,16 @@ public class Healer extends Character {
     }
 
     public void heal() {
-        int damage = this.equipment.getDMG();
-        int initHealth = this.hp;
-        int healamount = damage * 2;
-        this.setHP(initHealth + healamount);
+
+        if(this.hp < this.startingHealth) {
+            int damage = this.equipment.getDMG();
+            int initHealth = this.hp;
+            int healamount = damage * 2;
+            this.setHP(initHealth + healamount);
+            if(this.hp > this.startingHealth){
+                this.hp = this.startingHealth;
+            }
+        }
 
     }
 

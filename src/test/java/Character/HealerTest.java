@@ -8,7 +8,7 @@ import Types.ArmourType;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class HealerTest {
 
@@ -30,6 +30,22 @@ public class HealerTest {
     orc.attack(healer);
     healer.heal();
     assertEquals(46, healer.getHP());
+    }
+
+    @Test
+    public void startingHealthMeterDoesNotChange(){
+        int health = healer.getStartingHealth();
+        orc.attack(healer);
+        assertTrue(health != healer.getHP());
+    }
+
+    @Test
+    public void cannotHealPastStartingHP(){
+        orc.attack(healer);
+        healer.heal();
+        healer.heal();
+        healer.heal();
+        assertEquals(51, healer.getHP());
     }
 
 

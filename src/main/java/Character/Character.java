@@ -15,6 +15,7 @@ public abstract class Character implements IPlayable, IDamageable {
     ArmourType armour;
     ArrayList<TreasureType> bag;
     boolean status;
+    int startingHealth;
 
     public Character(int hp, Equipment equipment, ArmourType armour) {
         this.hp = hp + armour.getValue();
@@ -22,11 +23,16 @@ public abstract class Character implements IPlayable, IDamageable {
         this.armour = armour;
         this.bag = new ArrayList<TreasureType>();
         this.status = true;
+        this.startingHealth = this.hp;
 
     }
 
     public int getHP() {
         return hp;
+    }
+
+    public int getStartingHealth(){
+        return this.startingHealth;
     }
 
     public boolean getStatus(){return this.status;}
